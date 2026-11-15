@@ -114,6 +114,14 @@
   .foot a { color:var(--muted); }
 
   @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform:none; } }
+
+  /* astrophotography */
+  .astro { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:1rem; }
+  .astro figure { margin:0; background:var(--surface); border:1px solid var(--line); border-radius:12px;
+                  overflow:hidden; box-shadow:var(--shadow); }
+  .astro img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:#000; }
+  .astro figcaption { padding:.6rem .9rem; font-size:.85rem; color:var(--muted); }
+  .astro figcaption b { color:var(--fg); }
 </style>
 </head>
 <body>
@@ -124,9 +132,10 @@
       <a href="#featured">Featured</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <a href="#astro">Astrophotography</a>
       <a href="#contact">Contact</a>
       <a href="https://github.com/francescopazzocco">GitHub</a>
-      <a href="https://www.linkedin.com/in/francesco-pazzocco-305a6b44b/">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/francesco-pazzocco">LinkedIn</a>
       <a class="cv" href="FRANCESCO_PAZZOCCO_PUBLIC_CV.pdf">CV</a>
     </nav>
   </div>
@@ -265,11 +274,22 @@
   </div>
   </section>
 
+  <section id="astro">
+  <h2>Astrophotography</h2>
+  <p>Amateur astrophotography is my other hobby: the Andromeda galaxy (M31), from the raw stacked frame to the retouched version.</p>
+  <div class="astro">
+    <figure><img src="assets/astro/andromeda_raw.jpg" alt="Andromeda galaxy, raw frame" loading="lazy">
+      <figcaption><b>Raw frame</b>: before cleaning and retouching</figcaption></figure>
+    <figure><img src="assets/astro/andromeda_edited.jpg" alt="Andromeda galaxy, retouched" loading="lazy">
+      <figcaption><b>Retouched</b>: cleaned and processed</figcaption></figure>
+  </div>
+  </section>
+
   <section id="contact">
   <h2>Contact</h2>
   <div class="contact">
     <a href="mailto:francescopazzocco@gmail.com">francescopazzocco@gmail.com</a>
-    <a href="https://www.linkedin.com/in/francesco-pazzocco-305a6b44b/">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/francesco-pazzocco">LinkedIn</a>
     <a href="https://github.com/francescopazzocco">GitHub</a>
     <a href="FRANCESCO_PAZZOCCO_PUBLIC_CV.pdf">CV (PDF)</a>
   </div>
