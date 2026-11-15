@@ -4,128 +4,283 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Francesco Pazzocco</title>
-<meta name="description" content="MSc student in Physics of Data, University of Padova: tensor networks, probabilistic machine learning, GPU and distributed computing.">
+<meta name="description" content="Francesco Pazzocco, physicist: machine learning, tensor networks, probabilistic modelling, GPU and distributed computing. MSc Physics of Data, University of Padova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#fff; --fg:#1d1f23; --muted:#5b616b; --line:#d5d8de; --accent:#1e3c6e; }
+  :root {
+    --bg:#f6f7f9; --surface:#ffffff; --fg:#1b1e24; --muted:#5d6470; --line:#e2e5ea;
+    --accent:#1e3c6e;
+    /* category colours */
+    --ml:#2f6fde;  --ml-soft:#e8f0fd;
+    --tn:#7a4fd6;  --tn-soft:#f1ecfc;
+    --hpc:#d9792b; --hpc-soft:#fcf1e7;
+    --st:#1f9a73;  --st-soft:#e6f6f0;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.07);
+    --shadow-up:0 2px 4px rgba(16,24,40,.08),0 12px 28px rgba(16,24,40,.12);
+  }
   @media (prefers-color-scheme: dark) {
-    :root { --bg:#14161a; --fg:#e8eaee; --muted:#a2a8b3; --line:#2f333b; --accent:#8fb4f0; }
+    :root {
+      --bg:#111317; --surface:#1a1d23; --fg:#e8eaee; --muted:#a2a8b3; --line:#2c3038;
+      --accent:#8fb4f0;
+      --ml:#6b9cf2;  --ml-soft:#1c2738;
+      --tn:#a989ec;  --tn-soft:#251f36;
+      --hpc:#eb9a55; --hpc-soft:#33261b;
+      --st:#4cc49c;  --st-soft:#172c25;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.35);
+      --shadow-up:0 2px 4px rgba(0,0,0,.5),0 12px 28px rgba(0,0,0,.5);
+    }
   }
   * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
   body { margin:0; background:var(--bg); color:var(--fg);
-         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
-  .top { position:sticky; top:0; z-index:10; background:var(--bg); border-bottom:1px solid var(--line); }
-  .top-in { max-width:60rem; margin:0 auto; padding:.7rem 1rem; display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-  .brand .name { font-weight:700; font-size:1.15rem; }
-  .brand .role { color:var(--muted); font-size:.85rem; }
-  nav { display:flex; flex-wrap:wrap; gap:.3rem 1rem; }
+         font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  a { color:var(--accent); }
+
+  /* top bar */
+  .top { position:sticky; top:0; z-index:10; background:color-mix(in srgb,var(--bg) 88%,transparent);
+         backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .top-in { max-width:64rem; margin:0 auto; padding:.7rem 1rem; display:flex; gap:1rem;
+            align-items:center; justify-content:space-between; flex-wrap:wrap; }
+  .brand { font-weight:700; text-decoration:none; color:var(--fg); }
+  nav { display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; align-items:center; }
   nav a { color:var(--muted); text-decoration:none; font-size:.9rem; }
   nav a:hover { color:var(--accent); }
-  nav a.cv { color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:.1rem .55rem; }
-  nav a.cv:hover { border-color:var(--accent); color:var(--accent); }
+  nav a.cv { color:var(--surface); background:var(--fg); border-radius:6px; padding:.15rem .7rem; font-weight:500; }
+  nav a.cv:hover { background:var(--accent); color:var(--surface); }
+
+  main { max-width:64rem; margin:0 auto; padding:0 1rem 3rem; }
   section { scroll-margin-top:5rem; }
-  main { max-width:60rem; margin:0 auto; padding:2rem 1rem 4rem; }
-  h1 { font-size:2rem; margin:0 0 .6rem; }
-  h2 { font-size:1.05rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted);
-       border-bottom:1px solid var(--line); padding-bottom:.3rem; margin:2.4rem 0 1rem; }
-  a { color:var(--accent); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:1rem; }
-  .card { border:1px solid var(--line); border-radius:10px; padding:.8rem; display:flex; flex-direction:column; gap:.4rem; }
-  .card img { width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line); border-radius:6px; background:#eee; }
-  .card h3 { margin:.2rem 0 0; font-size:1rem; line-height:1.3; }
-  .card .tag { color:var(--muted); font-size:.8rem; }
-  .card p { margin:0; font-size:.9rem; }
-  .links { margin-top:auto; padding-top:.3rem; display:flex; gap:.5rem; flex-wrap:wrap; }
-  .btn { display:inline-block; padding:.25rem .6rem; border:1px solid var(--line); border-radius:6px; text-decoration:none; font-size:.85rem; }
+
+  /* hero */
+  .hero { padding:3.5rem 0 1.5rem; }
+  .hero h1 { font-family:"Source Serif 4",Georgia,serif; font-size:clamp(2.1rem,5vw,3rem);
+             line-height:1.1; margin:0 0 .4rem; }
+  .hero .role { font-size:1.1rem; color:var(--muted); margin:0 0 1.2rem; font-weight:500; }
+  .hero p.lead { max-width:44rem; margin:0 0 1.2rem; font-size:1.05rem; }
+  .chips { display:flex; flex-wrap:wrap; gap:.45rem; padding:0; margin:0; list-style:none; }
+  .chip { font-size:.8rem; font-weight:500; padding:.2rem .65rem; border-radius:999px;
+          background:var(--surface); border:1px solid var(--line); color:var(--muted); }
+  .chip.ml { color:var(--ml); background:var(--ml-soft); border-color:transparent; }
+  .chip.tn { color:var(--tn); background:var(--tn-soft); border-color:transparent; }
+  .chip.hpc{ color:var(--hpc);background:var(--hpc-soft);border-color:transparent; }
+  .chip.st { color:var(--st); background:var(--st-soft); border-color:transparent; }
+
+  h2 { font-size:.85rem; text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+       margin:2.8rem 0 1rem; display:flex; align-items:center; gap:.8rem; }
+  h2::after { content:""; flex:1; height:1px; background:var(--line); }
+
+  /* cards */
+  .card { --c:var(--accent); --c-soft:var(--bg);
+          background:var(--surface); border-radius:12px; box-shadow:var(--shadow);
+          border-top:4px solid var(--c); padding:1rem; display:flex; flex-direction:column; gap:.45rem;
+          transition:transform .18s ease, box-shadow .18s ease; }
+  .card:hover { transform:translateY(-3px); box-shadow:var(--shadow-up); }
+  .card.ml  { --c:var(--ml);  --c-soft:var(--ml-soft); }
+  .card.tn  { --c:var(--tn);  --c-soft:var(--tn-soft); }
+  .card.hpc { --c:var(--hpc); --c-soft:var(--hpc-soft); }
+  .card.st  { --c:var(--st);  --c-soft:var(--st-soft); }
+  .card img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; background:var(--c-soft); }
+  .card h3 { margin:.1rem 0 0; font-size:1.02rem; line-height:1.3; }
+  .card .tag { color:var(--c); font-size:.78rem; font-weight:600; letter-spacing:.01em; }
+  .card p { margin:0; font-size:.92rem; }
+  .card .result { background:var(--c-soft); border-radius:6px; padding:.35rem .55rem; font-size:.88rem; }
+  .links { margin-top:auto; padding-top:.4rem; display:flex; gap:.45rem; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:.22rem .65rem; border:1px solid var(--line); border-radius:6px;
+         text-decoration:none; font-size:.83rem; color:var(--fg); background:var(--surface); }
+  .btn:hover { border-color:var(--c); color:var(--c); }
+
+  .featured { display:grid; grid-template-columns:repeat(auto-fit,minmax(18rem,1fr)); gap:1.2rem; }
+  .featured .card { padding:1.3rem; }
+  .featured .card h3 { font-size:1.2rem; }
+  .featured .kicker { font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:600; }
+  .note { font-size:.78rem; color:var(--muted); }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(16rem,1fr)); gap:1.1rem; }
+
+  /* skills */
+  .skills { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:1rem; }
+  .skill { background:var(--surface); border-radius:10px; box-shadow:var(--shadow); padding:.9rem 1rem; }
+  .skill h3 { margin:0 0 .3rem; font-size:.95rem; }
+  .skill p { margin:0; font-size:.9rem; color:var(--muted); }
+
+  .contact { background:var(--surface); border-radius:12px; box-shadow:var(--shadow); padding:1.2rem;
+             display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; }
+
+  footer { border-top:1px solid var(--line); margin-top:3rem; }
+  .foot { max-width:64rem; margin:0 auto; padding:1.2rem 1rem; display:flex; justify-content:space-between;
+          flex-wrap:wrap; gap:.6rem; color:var(--muted); font-size:.85rem; }
+  .foot a { color:var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { .card { transition:none; } .card:hover { transform:none; } }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="top-in">
-    <div class="brand">
-      <div class="name">Francesco Pazzocco</div>
-      <div class="role">MSc student in Physics of Data &middot; University of Padova</div>
-    </div>
+    <a class="brand" href="#">Francesco Pazzocco</a>
     <nav>
-      <a href="#about">About</a>
+      <a href="#featured">Featured</a>
       <a href="#projects">Projects</a>
-      <a href="#publication">Publication</a>
+      <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
       <a href="https://github.com/francescopazzocco">GitHub</a>
-      <a href="https://www.linkedin.com/in/francesco-pazzocco">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/francesco-pazzocco-305a6b44b/">LinkedIn</a>
       <a class="cv" href="FRANCESCO_PAZZOCCO_PUBLIC_CV.pdf">CV</a>
     </nav>
   </div>
 </header>
+
 <main>
-  <section id="about">
-  <h1>Hi, I&rsquo;m Francesco.</h1>
-  <p>I study machine learning, probabilistic modelling and scientific computing, from CUDA kernels and
-  distributed pipelines to training and locally serving language models. My thesis, supervised by
-  Prof. Simone Montangero and Dr. Simone Notarnicola (Quantum Computing and Simulation group), is on
-  tensor-network readout heads for joint prediction on top of language-model encoders.</p>
+  <section class="hero" id="about">
+    <h1>Francesco Pazzocco</h1>
+    <p class="role">Physicist &middot; Machine Learning &amp; Tensor Networks</p>
+    <p class="lead">I build probabilistic machine-learning models and the code that runs them, from tensor
+    networks and Bayesian inference to CUDA kernels, distributed pipelines and locally served language models.
+    I am completing an MSc in Physics of Data at the University of Padova, with a thesis in the Quantum
+    Computing and Simulation group (Prof. Simone Montangero, Prof. Simone Notarnicola).</p>
+    <ul class="chips">
+      <li class="chip ml">Deep learning</li>
+      <li class="chip ml">LLMs</li>
+      <li class="chip tn">Tensor networks</li>
+      <li class="chip tn">Energy-based models</li>
+      <li class="chip st">Bayesian inference</li>
+      <li class="chip st">Information theory</li>
+      <li class="chip hpc">CUDA &amp; HPC</li>
+      <li class="chip hpc">FPGA</li>
+    </ul>
+  </section>
+
+  <section id="featured">
+  <h2>Featured</h2>
+  <div class="featured">
+    <article class="card tn">
+      <div class="kicker">MSc thesis &middot; in progress</div>
+      <h3>Tensor-network readout heads for joint prediction</h3>
+      <div class="tag">PyTorch &middot; MPS / TTN &middot; Quantum Computing and Simulation group</div>
+      <p>Models that answer many questions about the same input usually read each answer through an independent
+      head, so they cannot represent how answers depend on each other. I study MPS/TTN readout heads that model
+      the joint distribution of the answers from shared encoder states, compared with independent and simpler
+      joint baselines on likelihood, consistency and uncertainty.</p>
+    </article>
+    <article class="card st" id="publication">
+      <div class="kicker">Publication &middot; European Wireless 2026</div>
+      <h3>A Game of Age of Information for Slotted ALOHA over Markov-Degrading Channels</h3>
+      <div class="tag">Game theory &middot; stochastic games &middot; wireless networks</div>
+      <p>G. Napoleone, <b>F. Pazzocco</b>, L. Rossi, L. Badia. Decentralised Age-of-Information optimisation
+      as a partially observable stochastic game over Markov-degrading channels.</p>
+      <div class="links"><a class="btn" href="assets/AoI_Aloha_EuropeanWireless2026.pdf">Paper (PDF)</a></div>
+      <p class="note">Author&rsquo;s version as submitted to European Wireless 2026; it may differ from the final
+      published version. Copyright of the published version belongs to the publisher; this copy is provided
+      for personal and scholarly use only.</p>
+    </article>
+  </div>
   </section>
 
   <section id="projects">
   <h2>Projects</h2>
   <div class="grid">
-  <article class="card"><img src="assets/thumbs/NNDL_ViT_vs_ResNet_ContinualLearning.jpg" alt="" loading="lazy">
-    <h3>ViT vs ResNet in class-incremental continual learning</h3><div class="tag">PyTorch &middot; NNDL project &middot; with A. Casellato</div>
-    <p>ResNet-18 and ViT-Small trained from scratch on Split-CIFAR-100 with fine-tuning, EWC and Experience Replay; accuracy, CKA and weight-drift analysis of failure modes.</p><div class="links"><a class="btn" href="assets/NNDL_ViT_vs_ResNet_ContinualLearning.pdf">Report (PDF)</a><a class="btn" href="https://github.com/francescopazzocco/continual-learning-vit-resnet-swin">Code</a></div>
-  </article>
-  <article class="card">
-    <h3>RBM inference accelerator on FPGA</h3><div class="tag">VHDL &middot; Vivado &middot; Arty A7-100T</div>
-    <p>RBM (784&times;128, Q8.8) inference in VHDL with 16 parallel MAC units, a sigmoid look-up table and a UART interface; self-checking testbenches, weights trained in PyTorch and uploaded over UART.</p><div class="links"><a class="btn" href="https://github.com/francescopazzocco/fpga-rbm-inference">Code (GitHub)</a></div>
-  </article>
-  <article class="card"><img src="assets/thumbs/Pazzocco_QIC_MPS_classifiers.jpg" alt="" loading="lazy">
-    <h3>Matrix Product State classifiers</h3><div class="tag">Python &middot; tensor networks &middot; QIC final project</div>
-    <p>Reproducing and stress-testing Stoudenmire &amp; Schwab (2016): MPS classifiers on MNIST and CIFAR-10 built with the group&rsquo;s qchaitea tensor-network library, with ablations on site ordering, initialisation and sweep scheme.</p><div class="links"><a class="btn" href="assets/Pazzocco_QIC_MPS_classifiers.pdf">Slides (PDF)</a></div>
-  </article>
-  <article class="card"><img src="assets/thumbs/ENCA_presentation.jpg" alt="" loading="lazy">
-    <h3>Information content of ENCA summary statistics</h3><div class="tag">Python &middot; information theory &middot; with A. Casellato</div>
-    <p>Mutual information between learned summaries, parameters and noise in a stochastic double-well model.</p><div class="links"><a class="btn" href="assets/ENCA_presentation.pdf">Slides (PDF)</a></div>
-  </article>
-  <article class="card"><img src="assets/thumbs/MAPD_Anomaly_Detection.jpg" alt="" loading="lazy">
-    <h3>Anomaly detection and predictive maintenance</h3><div class="tag">Python &middot; Dask &middot; CloudVeneto &middot; team of 4</div>
-    <p>Distributed analysis of industrial refrigeration sensor data (5&nbsp;GB) on a Dask cluster: ON/OFF anomaly scoring, correlation with load and temperature, random-forest alarm prediction, scaling benchmarks.</p><div class="links"><a class="btn" href="assets/MAPD_Anomaly_Detection.pdf">Slides (PDF)</a></div>
-  </article>
-  <article class="card"><img src="assets/thumbs/Radionuclide_d18O_TimeScale_Correction.jpg" alt="" loading="lazy">
-    <h3>Time-scale correction of &delta;<sup>18</sup>O data</h3><div class="tag">R &middot; Stan &middot; Bayesian inference &middot; team of 3</div>
-    <p>Bayesian inference of constant and time-dependent time-scale parameters on a radio-nuclide &delta;<sup>18</sup>O record, with an Ornstein&ndash;Uhlenbeck model for time intervals.</p><div class="links"><a class="btn" href="assets/Radionuclide_d18O_TimeScale_Correction.pdf">Slides (PDF)</a></div>
-  </article>
-  <article class="card"><img src="assets/thumbs/AoI_Aloha_EuropeanWireless2026.jpg" alt="" loading="lazy">
-    <h3>Age of Information for slotted ALOHA</h3><div class="tag">Game theory &middot; European Wireless 2026</div>
-    <p>Decentralised AoI optimisation as a partially observable stochastic game over Markov-degrading channels.</p><div class="links"><a class="btn" href="assets/AoI_Aloha_EuropeanWireless2026.pdf">Paper (PDF)</a></div>
-  </article>
-  <article class="card">
-    <h3>Tensor-network readout heads for joint prediction</h3><div class="tag">PyTorch &middot; MSc thesis (in progress)</div>
-    <p>MPS/TTN heads that model the joint distribution of many answers computed from shared encoder states, compared with independent and simpler joint baselines.</p>
-  </article>
-  <article class="card">
-    <h3>Plankton community structure with RBMs</h3><div class="tag">Python</div>
-    <p>Restricted Boltzmann Machine on five years of high-frequency plankton monitoring data from Lake Greifen.</p><div class="links"><a class="btn" href="https://github.com/francescopazzocco/rbm-plankton">Code</a></div>
-  </article>
-  <article class="card">
-    <h3>N-body simulation on GPU</h3><div class="tag">C++ &middot; CUDA</div>
-    <p>Direct-summation Newtonian N-body code parallelised in CUDA.</p>
-  </article>
-  <article class="card">
-    <h3>Fake-news detection</h3><div class="tag">R</div>
-    <p>Comparison of Naive Bayes implementations for text classification, with confidence intervals.</p>
-  </article>
-  </div>
+    <article class="card ml"><img src="assets/thumbs/NNDL_ViT_vs_ResNet_ContinualLearning.jpg" alt="" loading="lazy">
+      <h3>ViT vs ResNet in class-incremental continual learning</h3>
+      <div class="tag">PyTorch &middot; with A. Casellato</div>
+      <p>ResNet-18 and ViT-Small trained from scratch on Split-CIFAR-100 with fine-tuning, EWC and Experience
+      Replay; accuracy, CKA and weight-drift analysis of where forgetting happens.</p>
+      <div class="links"><a class="btn" href="assets/NNDL_ViT_vs_ResNet_ContinualLearning.pdf">Report (PDF)</a><a class="btn" href="https://github.com/francescopazzocco/continual-learning-vit-resnet-swin">Code</a></div>
+    </article>
 
+    <article class="card hpc">
+      <h3>RBM inference accelerator on FPGA</h3>
+      <div class="tag">VHDL &middot; Vivado &middot; Arty A7-100T</div>
+      <p>784&times;128 RBM in Q8.8 fixed point with 16 parallel MAC units, a sigmoid look-up table and a UART
+      interface; self-checking testbenches, weights trained in PyTorch and uploaded over UART.</p>
+      <div class="links"><a class="btn" href="https://github.com/francescopazzocco/fpga-rbm-inference">Code</a></div>
+    </article>
+
+    <article class="card tn"><img src="assets/thumbs/Pazzocco_QIC_MPS_classifiers.jpg" alt="" loading="lazy">
+      <h3>Matrix Product State classifiers</h3>
+      <div class="tag">Python &middot; qchaitea &middot; QIC final project</div>
+      <p>Reproduction and stress test of Stoudenmire &amp; Schwab (2016) on MNIST and CIFAR-10, with ablations
+      on site ordering, initialisation and sweep scheme.</p>
+      <div class="links"><a class="btn" href="assets/Pazzocco_QIC_MPS_classifiers.pdf">Slides (PDF)</a></div>
+    </article>
+
+    <article class="card tn">
+      <h3>Plankton community structure with RBMs</h3>
+      <div class="tag">Python &middot; unsupervised learning</div>
+      <p>Restricted Boltzmann Machine on five years (2019&ndash;2024) of high-frequency plankton monitoring data
+      from Lake Greifen.</p>
+      <p class="result">Without any labels, the RBM recovered seven dominant community patterns.</p>
+      <div class="links"><a class="btn" href="https://github.com/francescopazzocco/rbm-plankton">Code</a></div>
+    </article>
+
+    <article class="card hpc"><img src="assets/thumbs/MAPD_Anomaly_Detection.jpg" alt="" loading="lazy">
+      <h3>Anomaly detection and predictive maintenance</h3>
+      <div class="tag">Python &middot; Dask &middot; CloudVeneto &middot; team of 4</div>
+      <p>Distributed analysis of 5&nbsp;GB of industrial refrigeration sensor data on a Dask cluster: anomaly
+      scoring, load&ndash;temperature correlation, random-forest alarm prediction and scaling benchmarks.</p>
+      <div class="links"><a class="btn" href="assets/MAPD_Anomaly_Detection.pdf">Slides (PDF)</a></div>
+    </article>
+
+    <article class="card st"><img src="assets/thumbs/ENCA_presentation.jpg" alt="" loading="lazy">
+      <h3>Information content of ENCA summary statistics</h3>
+      <div class="tag">Python &middot; information theory &middot; with A. Casellato</div>
+      <p>Mutual information between autoencoder-learned summaries, parameters and noise in a stochastic
+      double-well model.</p>
+      <div class="links"><a class="btn" href="assets/ENCA_presentation.pdf">Slides (PDF)</a></div>
+    </article>
+
+    <article class="card st"><img src="assets/thumbs/Radionuclide_d18O_TimeScale_Correction.jpg" alt="" loading="lazy">
+      <h3>Time-scale correction of &delta;<sup>18</sup>O data</h3>
+      <div class="tag">R &middot; Stan &middot; team of 3</div>
+      <p>Bayesian inference of constant and time-dependent time-scale parameters on an ice-core
+      &delta;<sup>18</sup>O record, with an Ornstein&ndash;Uhlenbeck model for time intervals.</p>
+      <div class="links"><a class="btn" href="assets/Radionuclide_d18O_TimeScale_Correction.pdf">Slides (PDF)</a></div>
+    </article>
+
+    <article class="card hpc">
+      <h3>N-body simulation on GPU</h3>
+      <div class="tag">C++ &middot; CUDA</div>
+      <p>Direct-summation 3D Newtonian N-body code parallelised in CUDA.</p>
+    </article>
+
+    <article class="card st">
+      <h3>Fake-news detection</h3>
+      <div class="tag">R &middot; Naive Bayes</div>
+      <p>Naive Bayes implementations for text classification compared on preprocessing and feature models,
+      with confidence intervals.</p>
+    </article>
+  </div>
   </section>
 
-  <section id="publication">
-  <h2>Publication</h2>
-  <p>G. Napoleone, <b>F. Pazzocco</b>, L. Rossi, L. Badia. <i>A Game of Age of Information for Slotted ALOHA
-  over Markov-Degrading Channels</i>. Proc. European Wireless 2026.</p>
+  <section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <div class="skill"><h3>Machine learning</h3><p>Deep learning, tensor networks, energy-based models, LLM fine-tuning (PEFT), continual learning</p></div>
+    <div class="skill"><h3>Programming</h3><p>Python, C/C++, CUDA, R (Stan, JAGS), VHDL, Fortran (basic)</p></div>
+    <div class="skill"><h3>Frameworks</h3><p>PyTorch, Hugging Face, NumPy, SciPy, pandas, scikit-learn, Dask</p></div>
+    <div class="skill"><h3>Systems</h3><p>Linux, Git, uv, pytest, GPU workflows, local LLM inference (llama.cpp, vLLM)</p></div>
+    <div class="skill"><h3>Statistics &amp; maths</h3><p>Bayesian inference, Monte Carlo, information theory, stochastic processes</p></div>
+    <div class="skill"><h3>Languages</h3><p>Italian (native), English (fluent)</p></div>
+  </div>
   </section>
 
   <section id="contact">
   <h2>Contact</h2>
-  <p><a href="mailto:francescopazzocco@gmail.com">francescopazzocco@gmail.com</a></p>
+  <div class="contact">
+    <a href="mailto:francescopazzocco@gmail.com">francescopazzocco@gmail.com</a>
+    <a href="https://www.linkedin.com/in/francesco-pazzocco-305a6b44b/">LinkedIn</a>
+    <a href="https://github.com/francescopazzocco">GitHub</a>
+    <a href="FRANCESCO_PAZZOCCO_PUBLIC_CV.pdf">CV (PDF)</a>
+  </div>
   </section>
 </main>
+
+<footer>
+  <div class="foot">
+    <span>&copy; 2026 Francesco Pazzocco</span>
+    <span>Padova, Italy</span>
+  </div>
+</footer>
 </body>
 </html>
