@@ -13,13 +13,21 @@
   * { box-sizing:border-box; }
   body { margin:0; background:var(--bg); color:var(--fg);
          font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
-  main { max-width:60rem; margin:0 auto; padding:3rem 1rem 4rem; }
-  h1 { font-size:2rem; margin:0 0 .2rem; }
+  .top { position:sticky; top:0; z-index:10; background:var(--bg); border-bottom:1px solid var(--line); }
+  .top-in { max-width:60rem; margin:0 auto; padding:.7rem 1rem; display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+  .brand .name { font-weight:700; font-size:1.15rem; }
+  .brand .role { color:var(--muted); font-size:.85rem; }
+  nav { display:flex; flex-wrap:wrap; gap:.3rem 1rem; }
+  nav a { color:var(--muted); text-decoration:none; font-size:.9rem; }
+  nav a:hover { color:var(--accent); }
+  nav a.cv { color:var(--fg); border:1px solid var(--line); border-radius:6px; padding:.1rem .55rem; }
+  nav a.cv:hover { border-color:var(--accent); color:var(--accent); }
+  section { scroll-margin-top:5rem; }
+  main { max-width:60rem; margin:0 auto; padding:2rem 1rem 4rem; }
+  h1 { font-size:2rem; margin:0 0 .6rem; }
   h2 { font-size:1.05rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted);
        border-bottom:1px solid var(--line); padding-bottom:.3rem; margin:2.4rem 0 1rem; }
   a { color:var(--accent); }
-  .sub { color:var(--muted); margin:0 0 1rem; }
-  .links a { margin-right:1rem; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:1rem; }
   .card { border:1px solid var(--line); border-radius:10px; padding:.8rem; display:flex; flex-direction:column; gap:.4rem; }
   .card img { width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid var(--line); border-radius:6px; background:#eee; }
@@ -31,25 +39,33 @@
 </style>
 </head>
 <body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <div class="name">Francesco Pazzocco</div>
+      <div class="role">MSc student in Physics of Data &middot; University of Padova</div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#publication">Publication</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/francescopazzocco">GitHub</a>
+      <a href="https://www.linkedin.com/in/francesco-pazzocco">LinkedIn</a>
+      <a class="cv" href="FRANCESCO_PAZZOCCO_PUBLIC_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
 <main>
-  <h1>Francesco Pazzocco</h1>
-  <p class="sub">MSc student in Physics of Data, University of Padova &middot; Padova, Italy</p>
-  <p class="links">
-    <a href="mailto:francescopazzocco@gmail.com">Email</a>
-    <a href="https://github.com/francescopazzocco">GitHub</a>
-    <a href="https://www.linkedin.com/in/francesco-pazzocco">LinkedIn</a>
-  </p>
-
-  <h2>About</h2>
+  <section id="about">
+  <h1>Hi, I&rsquo;m Francesco.</h1>
   <p>I study machine learning, probabilistic modelling and scientific computing, from CUDA kernels and
   distributed pipelines to training and locally serving language models. My thesis, supervised by
   Prof. Simone Montangero and Dr. Simone Notarnicola (Quantum Computing and Simulation group), is on
   tensor-network readout heads for joint prediction on top of language-model encoders.</p>
+  </section>
 
-  <h2>CV</h2>
-  <p><a href="CV_Pazzocco_industry.pdf">Industry version (PDF)</a> &middot;
-     <a href="CV_Pazzocco_research.pdf">Research version (PDF)</a></p>
-
+  <section id="projects">
   <h2>Projects</h2>
   <div class="grid">
   <article class="card"><img src="assets/thumbs/NNDL_ViT_vs_ResNet_ContinualLearning.jpg" alt="" loading="lazy">
@@ -98,9 +114,18 @@
   </article>
   </div>
 
+  </section>
+
+  <section id="publication">
   <h2>Publication</h2>
   <p>G. Napoleone, <b>F. Pazzocco</b>, L. Rossi, L. Badia. <i>A Game of Age of Information for Slotted ALOHA
   over Markov-Degrading Channels</i>. Proc. European Wireless 2026.</p>
+  </section>
+
+  <section id="contact">
+  <h2>Contact</h2>
+  <p><a href="mailto:francescopazzocco@gmail.com">francescopazzocco@gmail.com</a></p>
+  </section>
 </main>
 </body>
 </html>
